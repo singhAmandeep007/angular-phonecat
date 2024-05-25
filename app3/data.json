@@ -1,0 +1,45 @@
+{
+  "dataColumns": ["name", "ram", "cpu", "isConnected", "permission", "id"],
+  "data": [
+    {
+      "name": "vm1",
+      "ram": 2,
+      "cpu": 4,
+      "isConnected": true,
+      "permission": "CONTROL",
+      "id": "vm1"
+    },
+    {
+      "name": "vm2",
+      "ram": 4,
+      "cpu": 16,
+      "isConnected": false,
+      "permission": null,
+      "id": "vm2"
+    },
+    {
+      "name": "vm3",
+      "ram": 1,
+      "cpu": 9,
+      "isConnected": true,
+      "permission": "CONTROL",
+      "id": "vm3"
+    },
+    {
+      "name": "vm4",
+      "ram": 2,
+      "cpu": 4,
+      "isConnected": true,
+      "permission": "CONTROL",
+      "id": "vm4"
+    },
+    {
+      "name": "vm5",
+      "ram": 10,
+      "cpu": 40,
+      "isConnected": false,
+      "permission": null,
+      "id": "vm5"
+    }
+  ]
+}

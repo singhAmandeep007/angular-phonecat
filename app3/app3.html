@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="ie=edge"
+    />
+    <!-- <script src="../lib/angular-1.2.js"></script> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.32/angular.min.js"
+      integrity="sha512-QaPMeB0UECrUSaJoWZfBkKK2LtKphYS6HM7krY98a3einXpAooyQQOv2FNm4r+umav2dQsfBHFiHnwBZovSjpw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./controller.js"></script>
+    <script>
+      const app = angular.module("MyApp", []);
+      app.controller("Root", controller);
+    </script>
+    <title>Eg 2</title>
+    <link
+      rel="stylesheet"
+      href="./styles.css"
+    />
+  </head>
+  <body ng-app="MyApp">
+    <div ng-controller="Root">
+      <a href="../index.html">Home</a>
+
+      <div ng-if="data!==null">
+        <h1>Publish commands to machines</h1>
+        <div style="margin-bottom: 10px">
+          <button ng-click="refresh()">Refresh</button>
+          <button
+            ng-click="usePublisher.toggleIsPopupOpen()"
+            ng-disabled="usePublisher.isPublisherDisabled()"
+          >
+            Publisher
+          </button>
+          <label>
+            With control permission
+            <input
+              type="checkbox"
+              ng-model="filters.withControlPermissionOnly"
+              ng-true-value="true"
+              ng-false-value="null"
+          /></label>
+        </div>
+
+        <span ng-if="data.length==0">No data</span>
+
+        <table
+          ng-if="data.length>0"
+          ng-init="hideColumns=['isConnected']"
+        >
+          <tr>
+            <th
+              ng-repeat="col in dataColumns"
+              ng-if="!hideColumns.includes(col)"
+            >
+              {{col}}
+            </th>
+            <th>
+              <input
+                type="checkbox"
+                ng-model="usePublisher.isAllSelected"
+                ng-change="usePublisher.toggleSelect()"
+              />
+            </th>
+          </tr>
+          <tbody ng-repeat="row in data | filter:customFilter">
+            <tr ng-class="{'disabled': row.permission==null, 'active': row.permission!=null}">
+              <td
+                ng-repeat="col in dataColumns"
+                ng-if="!hideColumns.includes(col)"
+              >
+                <span>{{row[col]}}</span>
+              </td>
+
+              <td ng-init="row.isSelected=false;">
+                <input
+                  type="checkbox"
+                  ng-model="row.isSelected"
+                  ng-change="usePublisher.toggleSelect(row)"
+                  ng-disabled="!hasControlPermission(row)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div
+          ng-if="usePublisher.isPopupOpen"
+          class="publisherPopup"
+        >
+          <div class="actionGroup">
+            <button
+              ng-disabled="!usePublisher.command"
+              ng-click="usePublisher.publish()"
+            >
+              Publish
+            </button>
+            <button ng-click="usePublisher.toggleIsPopupOpen()">X</button>
+          </div>
+
+          <div>
+            <select
+              ng-model="usePublisher.commandType"
+              ng-options="type for type in usePublisher.commandTypes"
+            ></select>
+          </div>
+
+          <div class="command">
+            <label for="command">Command:</label>
+            <textarea
+              id="command"
+              ng-model="usePublisher.command"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

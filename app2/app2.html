@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="ie=edge"
+    />
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="../lib/angular-1.2.js"></script> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.32/angular.min.js"
+      integrity="sha512-QaPMeB0UECrUSaJoWZfBkKK2LtKphYS6HM7krY98a3einXpAooyQQOv2FNm4r+umav2dQsfBHFiHnwBZovSjpw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./controller.js"></script>
+    <script>
+      const app = angular.module("MyApp", []);
+      app.controller("Root", controller);
+    </script>
+    <title>Eg 1</title>
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
+  </head>
+  <body ng-app="MyApp">
+    <div ng-controller="Root">
+      <a href="../index.html">Home</a>
+
+      <p>
+        UserId:
+        <input
+          type="text"
+          ng-model="userId"
+        />
+      </p>
+      <p>Click 'GET' to get todos for user with id <span ng-bind="userId"></span>!</p>
+
+      <button ng-click="getUsersTodos(userId)">GET</button>
+
+      <ol>
+        <!-- directives -->
+        <li ng-repeat="todo in todos">
+          <div>
+            <p>{{'User id' + todo.userId}}</p>
+            <p>{{ 'Todo: ' + todo.title }}</p>
+          </div>
+        </li>
+      </ol>
+      <!-- <div>
+        <span>expressions</span>
+        <p>FirstName {{student.firstName + " " + student.lastName}}!</p>
+        <p>Age after 10 years: {{student.age + 10}}</p>
+        <p>Marks(Math): {{student.marks.math}}</p>
+      </div> -->
+    </div>
+  </body>
+</html>
